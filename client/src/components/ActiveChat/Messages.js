@@ -8,7 +8,8 @@ const Messages = (props) => {
 
   return (
     <Box>
-      {messages.map((message) => {
+      {messages.sort(compareTwoMessages)
+      .map((message) => {
         const time = moment(message.createdAt).format("h:mm");
 
         return message.senderId === userId ? (
@@ -20,5 +21,7 @@ const Messages = (props) => {
     </Box>
   );
 };
+
+const compareTwoMessages = (left, right) => moment(left.createdAt).diff(moment(right.createdAt));
 
 export default Messages;
