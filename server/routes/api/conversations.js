@@ -78,4 +78,22 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// API for marking all messages in conversation as read
+router.post("/markMessagesAsRead",  async (req, res, next) => {
+  try {
+    await Message.update({
+      read: true
+    }, {
+      where : {
+        conversationId: req.body.conversationId
+      }
+    });
+    res.json({
+      messagesUpdate: true
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
