@@ -11,15 +11,16 @@ export const addMessageToStore = (state, payload) => {
     return [newConvo, ...state];
   }
 
-  return state.map((convo) => {
-    if (convo.id === message.conversationId) {
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
-    } else {
-      return convo;
-    }
-  });
+  const conversation = state.find(convo => convo.id === message.conversationId);
+  const newConversation = {
+    ...conversation,
+    messages: (conversation.messages && [message, ...conversation.messages]) || [],
+    latestMessageText: message.text,
+  };
+  return [
+    newConversation,
+    ...state.filter(convo => convo.id !== message.conversationId),
+  ]
 };
 
 export const addOnlineUserToStore = (state, id) => {
