@@ -111,7 +111,7 @@ export const postMessage = (body) => async (dispatch) => {
 };
 
 const markMessagesAsRead = async (body) => {
-  const { data } = await axios.post("/api/conversations/markMessagesAsRead", body);
+  const { data } = await axios.patch("/api/conversations/read", body);
   return data;
 };
 
@@ -121,14 +121,15 @@ const emitMarkMessageRead = (conversationId) => {
   });
 };
 
-export const markConversationAsRead = (body) => async (dispatch) => {
+export const markConversationAsRead = ({conversationId, userId}) => async (dispatch) => {
   try {
     await markMessagesAsRead({
-      conversationId: body.conversationId
+      conversationId,
+      userId
     });
 
-    emitMarkMessageRead(body.conversationId);
-    dispatch(setConversationRead(body.conversationId));
+    emitMarkMessageRead(conversationId);
+    dispatch(setConversationRead(conversationId));
   } catch (error) {
     console.error(error);
   }

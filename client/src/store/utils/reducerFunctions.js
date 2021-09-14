@@ -17,6 +17,7 @@ export const addMessageToStore = (state, payload) => {
   }
   const newConversation = {
     ...conversation,
+    unreadCount: conversation.unreadCount + 1,
     messages: (conversation.messages && [message, ...conversation.messages]) || [],
     latestMessageText: message.text,
   };
@@ -32,14 +33,20 @@ export const setConversationReadToStore = (state, payload) => {
   if (!conversation) {
     return state;
   }
-  const newMessagesSate = conversation.messages.map(message => ({
+
+  const newMessagesState = conversation.messages.map(message => ({
     ...message,
     read: true
   }));
+
+  const messagesRead = conversation.messages.filter(message => message.senderId !== conversation.otherUser.id);
+  const lastReadMessageId = messagesRead[messagesRead.length - 1].id;
   return [
     {
       ...conversation,
-      messages: newMessagesSate
+      messages: newMessagesState,
+      unreadCount: 0,
+      lastReadMessageId: lastReadMessageId
     },
     ...state.filter(convo => convo.id !== conversationId),
   ]

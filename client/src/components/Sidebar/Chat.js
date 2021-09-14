@@ -35,14 +35,14 @@ const useStyles = makeStyles((theme) => ({
 const Chat = (props) => {
 
   const classes = useStyles();
-  const { conversation, user } = props;
-  const { otherUser } = conversation;
-  const unreadMessageCount = getUnreadMessageCount(conversation, user);
+  const { conversation } = props;
+  const { otherUser, unreadCount } = conversation;
  
   const handleClick = async (conversation) => {
-    if (unreadMessageCount > 0) {
+    if (unreadCount > 0) {
       await props.markConversationRead({
-        conversationId: conversation.id
+        conversationId: conversation.id,
+        userId: props.userId
       });
     }
     await props.setActiveChat(conversation.otherUser.username);
@@ -56,8 +56,8 @@ const Chat = (props) => {
         online={otherUser.online}
         sidebar={true}
       />
-      <ChatContent conversation={conversation} />
-      {unreadMessageCount !== 0 ? <Typography className={classes.bubble}>{`${unreadMessageCount}`}</Typography> : null }
+      <ChatContent conversation={conversation} unreadMessageCount={unreadCount} />
+      {unreadCount !== 0 && <Typography className={classes.bubble}>{unreadCount}</Typography>}
     </Box>
   );
 };
@@ -70,7 +70,5 @@ const mapDispatchToProps = (dispatch) => {
     markConversationRead: (body) => dispatch(markConversationAsRead(body))
   };
 };
-
-export const getUnreadMessageCount = (conversation, user) => (conversation && user && conversation.messages && conversation.messages.filter(message => message.senderId !== user.id && !message.read).length) || 0;
 
 export default connect(null, mapDispatchToProps)(Chat);

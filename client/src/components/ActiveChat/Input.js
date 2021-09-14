@@ -29,7 +29,8 @@ const Input = (props) => {
   const handleOnClick = (event) => {
     if (props.unreadMessageCount > 0) {
       props.markConversationRead({
-        conversationId
+        conversationId,
+        userId: user.id
       });
     }
   }

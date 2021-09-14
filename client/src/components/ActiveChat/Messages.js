@@ -4,8 +4,7 @@ import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 
 const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
-  const lastReadMessageId = getLastReadMessageId(messages, userId);
+  const { messages, otherUser, userId,lastReadMessageId } = props;
   return (
     <Box>
       {messages.sort(compareTwoMessages)
@@ -21,11 +20,6 @@ const Messages = (props) => {
     </Box>
   );
 };
-
-const getLastReadMessageId = (messages, userId) => {
-  const readMessages = messages.filter(message => message.senderId === userId && message.read === true).sort((message1, message2) => message1.id - message2.id);
-  return (readMessages && readMessages.length && readMessages[readMessages.length - 1].id) || null;
-} 
 
 const compareTwoMessages = (left, right) => moment(left.createdAt).diff(moment(right.createdAt));
 
