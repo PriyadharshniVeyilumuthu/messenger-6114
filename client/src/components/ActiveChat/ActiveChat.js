@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { Input, Header, Messages } from "./index";
 import { connect } from "react-redux";
+import { markConversationAsRead } from "../../store/utils/thunkCreators";
+import { getUnreadMessageCount } from "../Sidebar/Chat";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,7 +26,7 @@ const ActiveChat = (props) => {
   const classes = useStyles();
   const { user } = props;
   const conversation = props.conversation || {};
-
+  const unreadMessageCount = getUnreadMessageCount(conversation, user);
   return (
     <Box className={classes.root}>
       {conversation.otherUser && (
@@ -43,6 +45,7 @@ const ActiveChat = (props) => {
               otherUser={conversation.otherUser}
               conversationId={conversation.id}
               user={user}
+              unreadMessageCount={unreadMessageCount}
             />
           </Box>
         </>

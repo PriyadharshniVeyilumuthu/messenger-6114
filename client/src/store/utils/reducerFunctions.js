@@ -12,6 +12,9 @@ export const addMessageToStore = (state, payload) => {
   }
 
   const conversation = state.find(convo => convo.id === message.conversationId);
+  if (!conversation) {
+    return state;
+  }
   const newConversation = {
     ...conversation,
     messages: (conversation.messages && [message, ...conversation.messages]) || [],
@@ -22,6 +25,25 @@ export const addMessageToStore = (state, payload) => {
     ...state.filter(convo => convo.id !== message.conversationId),
   ]
 };
+
+export const setConversationReadToStore = (state, payload) => {
+  const { conversationId } = payload;
+  const conversation = state.find(convo => convo.id === conversationId);
+  if (!conversation) {
+    return state;
+  }
+  const newMessagesSate = conversation.messages.map(message => ({
+    ...message,
+    read: true
+  }));
+  return [
+    {
+      ...conversation,
+      messages: newMessagesSate
+    },
+    ...state.filter(convo => convo.id !== conversationId),
+  ]
+}
 
 export const addOnlineUserToStore = (state, id) => {
   return state.map((convo) => {
