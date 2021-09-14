@@ -24,6 +24,10 @@ const useStyles = makeStyles(() => ({
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px"
+  },
+  avatar: {
+    maxHeight: "20px",
+    maxWidth: "20px",
   }
 }));
 
