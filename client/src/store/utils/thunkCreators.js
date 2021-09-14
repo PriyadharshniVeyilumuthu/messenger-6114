@@ -123,7 +123,7 @@ const emitMarkMessageRead = (conversationId) => {
 
 export const markConversationAsRead = (body) => async (dispatch) => {
   try {
-    const data = await markMessagesAsRead({
+    await markMessagesAsRead({
       conversationId: body.conversationId
     });
 
