@@ -84,7 +84,7 @@ const reducer = (state = [], action) => {
     case SET_MESSAGE:
       return addMessageToStore(state, action.payload);
     case MARK_CONVERSATION_READ:
-    return setConversationReadToStore(state, action.payload);
+      return setConversationReadToStore(state, action.payload);
     case ADD_ONLINE_USER: {
       return addOnlineUserToStore(state, action.id);
     }
