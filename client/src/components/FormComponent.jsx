@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
   },
   actionButton: {
     margin: "25px",
-    width: "180px",
+    width: "175px",
     padding: "15px",
   },
 }));
@@ -63,7 +63,7 @@ const FormComponent = (props) => {
     <Grid container direction="row" classes={{ root: { height: "100%" } }}>
       {props.isDesktopView && (
         <Grid container item xs sm={5}>
-          <SideImage />{" "}
+          <SideImage />
         </Grid>
       )}
       <Grid container item xs sm={7}>

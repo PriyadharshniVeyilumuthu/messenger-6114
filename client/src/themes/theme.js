@@ -32,7 +32,6 @@ export const theme = createMuiTheme({
         }
       },
       input: {
-        fontWeight: "bold",
         fontSize: "1em",
         width: '21em',
         marginTop: '10px'

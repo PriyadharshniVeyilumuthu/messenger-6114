@@ -5,7 +5,7 @@ const styles = makeStyles(() => ({
   button: {
     boxShadow: `0px 1px 20px 12px #f5f7f9`,
     color: "#3A8DFF",
-    width: "200px",
+    width: "175px",
     height: "60px",
     paddingTop: "-10px",
   },

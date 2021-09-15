@@ -3,7 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../store/utils/thunkCreators";
 import FormComponent from "./FormComponent";
-import { makeStyles } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 
 export const passwordStyles = makeStyles(() => ({
   forgotPassword: {
@@ -63,12 +63,12 @@ const Login = (props) => {
           specialInputProps: {
             className: classes.passwordFont,
             endAdornment: (
-              <div
+              <Box
                 className={classes.forgotPassword}
                 onClick={() => console.log("Forgot")}
               >
                 Forgot?
-              </div>
+              </Box>
             ),
           },
         },

@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 const ResponsiveWrapper = (props) => {
@@ -15,7 +16,7 @@ const ResponsiveWrapper = (props) => {
     ...props,
     isDesktopView,
   };
-  return <div>{React.cloneElement(props.children, { ...newProps })}</div>;
+  return <Box>{React.cloneElement(props.children, { ...newProps })}</Box>;
 };
 
 export default ResponsiveWrapper;
