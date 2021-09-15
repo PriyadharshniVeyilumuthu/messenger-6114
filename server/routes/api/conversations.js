@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User, Conversation, Message } = require("../../db/models");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const onlineUsers = require("../../onlineUsers");
 
 // get all conversations for a user, include latest message text for preview, and all messages
@@ -66,13 +66,56 @@ router.get("/", async (req, res, next) => {
       } else {
         convoJSON.otherUser.online = false;
       }
+      const unreadCount = convoJSON.messages.filter(message => message.senderId !== userId && !message.read).length;
+      let lastReadMessageId = 0;
+      const lastReadMessage = convoJSON.messages.filter(message => message.senderId === userId && message.read);
+      if (lastReadMessage && lastReadMessage.length) {
+        lastReadMessageId = lastReadMessage[0].id;
+      }
 
       // set properties for notification count and latest message preview
       convoJSON.latestMessageText = convoJSON.messages[0].text;
+      convoJSON.unreadCount = unreadCount;
+      convoJSON.lastReadMessageId = lastReadMessageId;
       conversations[i] = convoJSON;
     }
 
     res.json(conversations);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// API for marking all messages in conversation as read
+router.patch("/read",  async (req, res, next) => {
+  if (!req.body.userId) {
+    return res.sendStatus(401);
+  }
+
+  const userId = req.body.userId;
+
+  const conversations = await Conversation.findAll({
+    where: {
+      [Op.or]: {
+        user1Id: userId,
+        user2Id: userId,
+      },
+    }
+  });
+
+  if (!conversations) {
+    return res.sendStatus(401);
+  }
+
+  try {
+    await Message.update({
+      read: true
+    }, {
+      where : {
+        conversationId: req.body.conversationId,
+      }
+    });
+    res.status(204).send();
   } catch (error) {
     next(error);
   }
