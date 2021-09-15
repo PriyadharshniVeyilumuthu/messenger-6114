@@ -40,34 +40,36 @@ const SignUp = (props) => {
   }
 
   return (
-    <FormComponent 
-    clickableText={"Login"}
-    headerLabel={"Already have an account?"} 
-    onLabelClick={() => history.push("/login")}
-    handleSubmit={handleRegister}
-    welcomeText={"Create an account."}
-    fields={[{
-      name: "Username",
-      shortName: "username",
-      type: "text"
-    },
-    {
-      name: "E-mail address",
-      shortName: "email",
-      type: "email"
-    },
-    {
-      name: "Password",
-      shortName: "password",
-      type: "password",
-      specialInputProps: {
-        className:  classes.passwordFont,
-      }
-    }]}
-    buttonText={"Create"}
-    setFormErrorMessage={setFormErrorMessage}
-    isDesktopView={props.isDesktopView}
-    formErrorMessage={formErrorMessage}
+    <FormComponent
+      clickableText={"Login"}
+      headerLabel={"Already have an account?"}
+      onLabelClick={() => history.push("/login")}
+      handleSubmit={handleRegister}
+      welcomeText={"Create an account."}
+      fields={[
+        {
+          name: "Username",
+          shortName: "username",
+          type: "text",
+        },
+        {
+          name: "E-mail address",
+          shortName: "email",
+          type: "email",
+        },
+        {
+          name: "Password",
+          shortName: "password",
+          type: "password",
+          specialInputProps: {
+            className: classes.passwordFont,
+          },
+        },
+      ]}
+      buttonText={"Create"}
+      setFormErrorMessage={setFormErrorMessage}
+      isDesktopView={props.isDesktopView}
+      formErrorMessage={formErrorMessage}
     />
   );
 };

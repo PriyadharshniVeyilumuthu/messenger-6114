@@ -8,13 +8,13 @@ import { makeStyles } from "@material-ui/core";
 export const passwordStyles = makeStyles(() => ({
   forgotPassword: {
     color: "#3A8DFF",
-    fontSize: 'small',
-    cursor: 'pointer'
+    fontSize: "small",
+    cursor: "pointer",
   },
   passwordFont: {
     fontSize: "30px",
-    width: "11.5em"
-  }
+    width: "11.5em",
+  },
 }));
 const Login = (props) => {
   const classes = passwordStyles();
@@ -45,34 +45,41 @@ const Login = (props) => {
 
   return (
     <FormComponent
-    clickableText={"Create account"}
-    headerLabel={"Don't have an account?"} 
-    onLabelClick={() => history.push("/register")}
-    handleSubmit={handleLogin}
-    welcomeText={"Welcome back!"}
-    fields={[
-    {
-      name: "E-mail address",
-      shortName: "email",
-      type: "email"
-    },
-    {
-      name: "Password",
-      shortName: "password",
-      type: "password",
-      specialInputProps: {
-        className:  classes.passwordFont,
-        endAdornment: <div className={classes.forgotPassword} onClick={() => console.log("Forgot")}>Forgot?</div>
-      }
-    }]}
-    buttonText={"Login"}
-    setFormErrorMessage={setFormErrorMessage}
-    isDesktopView={props.isDesktopView}
-    formErrorMessage={formErrorMessage}
+      clickableText={"Create account"}
+      headerLabel={"Don't have an account?"}
+      onLabelClick={() => history.push("/register")}
+      handleSubmit={handleLogin}
+      welcomeText={"Welcome back!"}
+      fields={[
+        {
+          name: "E-mail address",
+          shortName: "email",
+          type: "email",
+        },
+        {
+          name: "Password",
+          shortName: "password",
+          type: "password",
+          specialInputProps: {
+            className: classes.passwordFont,
+            endAdornment: (
+              <div
+                className={classes.forgotPassword}
+                onClick={() => console.log("Forgot")}
+              >
+                Forgot?
+              </div>
+            ),
+          },
+        },
+      ]}
+      buttonText={"Login"}
+      setFormErrorMessage={setFormErrorMessage}
+      isDesktopView={props.isDesktopView}
+      formErrorMessage={formErrorMessage}
     />
   );
 };
-
 
 const mapStateToProps = (state) => {
   return {
