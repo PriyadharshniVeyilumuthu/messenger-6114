@@ -11,9 +11,30 @@ export const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiInputLabel: {
+      root: {
+        color: "#b0b0b0",
+        "&$focused": {
+          color: "#b0b0b0",
+        },
+        "&$animated": {
+          fontSize: "20px",
+        }
+      }
+    },
     MuiInput: {
+      root: {
+        paddingTop: "13px",
+      },
+      underline: {
+        "&&::before": {
+          borderColor: "#D5DFEE"
+        }
+      },
       input: {
-        fontWeight: "bold"
+        fontSize: "1em",
+        width: '21em',
+        marginTop: '10px'
       }
     }
   },

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "./store/utils/thunkCreators";
-import Signup from "./Signup.js";
-import Login from "./Login.js";
 import { Home, SnackbarError } from "./components";
+import ResponsiveWrapper from "./components/ResponsiveWrapper";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 const Routes = (props) => {
   const { user, fetchUser } = props;
@@ -41,8 +42,8 @@ const Routes = (props) => {
         />
       )}
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Signup} />
+        <Route path="/login" component={() => <ResponsiveWrapper><Login /></ResponsiveWrapper>} />
+        <Route path="/register" component={() => <ResponsiveWrapper><Signup /></ResponsiveWrapper>} />
         <Route
           exact
           path="/"
